@@ -35,7 +35,7 @@ export const registerLead = async (req, res) => {
       message,
     });
 
-    await appendLeadToSheet(lead);
+    await appendLeadToSheet(newLead);
 
     res.status(201).json({
       success: true,
