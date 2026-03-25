@@ -112,6 +112,47 @@ export const updateLeadAccountStatus = async (req, res) => {
 };
 
 /* ---------------------------------------------------
+   Update Lead Status
+--------------------------------------------------- */
+
+export const updateLeadStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const validStatuses = ["pending", "contacted", "rejected"];
+
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({
+        message: "Invalid status",
+      });
+    }
+
+    const updatedLead = await Lead.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true },
+    );
+
+    if (!updatedLead) {
+      return res.status(404).json({
+        message: "Lead not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "status updated",
+      lead: updatedLead,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+/* ---------------------------------------------------
    Delete Lead
 --------------------------------------------------- */
 

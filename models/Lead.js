@@ -46,7 +46,7 @@ const LeadSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "pending",
-      enum: ["pending", "contacted", "closed"],
+      enum: ["pending", "contacted", "rejected"],
     },
 
     accountStatus: {
